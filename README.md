@@ -1,11 +1,14 @@
-# 🐱 Cat Weight Tracker | 猫咪体重追踪
+# 🐱 Cat Weight Tracker | 猫咪体重本
 
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?logo=cloudflare)](https://workers.cloudflare.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ![Dark Mode](screenshots/screenshots_dark.png) 
+
 <p align="center">Dark Mode screenshot</p>
+
 ![Dark Mode](screenshots/screenshots_light.png)
+
 <p align="center">Light Mode screenshot</p>
 
 **[English](#english) | [中文说明](#中文说明)**
@@ -16,18 +19,19 @@
 ## 🇬🇧 English
 
 A minimalist, beautiful, serverless Cat Weight Tracker built on **Cloudflare Workers**.
-Keep track of your furry friend's health with interactive charts, dark mode, and a modern UI—all running for free on your own Cloudflare account.
+Keep track of your furry friend's health with interactive charts, dark mode, multi-language support, and a modern UI—all running for free on your own Cloudflare account.
 
 ### ✨ Features
 
-* **Serverless Architecture**: Hosted entirely on Cloudflare Workers + KV Storage. No server maintenance required.
+* **Serverless Architecture**: Hosted entirely on Cloudflare Workers + KV Storage. Zero maintenance.
 * **Modern UI**: Glassmorphism design, 3D tilt card effects, and smooth animations using the "Varela Round" font.
-* **Data Visualization**: Interactive SVG charts with smart tooltips (prevents screen cutoff) and trend indicators.
-* **Dark/Light Mode**: Toggle between a sunny day theme and a midnight blue theme. Persistence supported.
-* **PWA Support**: Install it on your phone! Supports "Add to Home Screen" with a native app-like experience (no browser address bar).
+* **🌍 Multi-Language**: One-click switching between **English** and **Chinese**.
+* **🌗 Theme Toggle**: Switch between **Sunny Light** and **Midnight Dark** modes with persistence.
+* **Data Visualization**: Interactive SVG charts with time filters (3 Months/6 Months/All) and smart tooltips.
+* **PWA Support**: Installable on mobile devices! Offers a native app-like full-screen experience.
 * **Multi-Cat Support**: Manage weight records for multiple cats in one place.
 * **Import & Export**: Full CSV support. Backup your data or bulk import records from other apps.
-* **Secure**: Basic Authentication (Admin/Password) protected management interface.
+* **Secure**: Password-protected management dashboard.
 
 ### 🚀 Quick Deployment
 
@@ -67,19 +71,18 @@ Keep track of your furry friend's health with interactive charts, dark mode, and
 
 🎉 **Done!** Visit your worker URL to start tracking.
 
-### 📂 Data Management (Import/Export)
+### 📂 Data Management
 
-You can manage your data in the Admin Dashboard (login required).
+Manage your data in the Admin Dashboard (login required).
 
-* **Export**: Click **📥 Export CSV** to download all records for the currently selected cat.
-* **Import**: Click **📤 Import CSV** to upload bulk data.
-    * **Format**: The CSV should preferably be in `Date,Weight,Name,Note` format (standard export format).
-    * **Logic**: The system uses "Date + Cat Name" as a unique key. If a record with the same date exists, it will be **overwritten/updated**; otherwise, it will be added.
+* **Export**: Click **📥 Export CSV** to download records for the selected cat.
+* **Import**: Click **📤 Import CSV** to bulk upload data.
+    * **Logic**: The system uses "Date + Cat Name" as a unique key. Existing records with the same date will be overwritten; new dates will be added.
 
 ### 📱 Mobile Usage (PWA)
 1.  Open the website in Safari (iOS) or Chrome (Android).
 2.  Tap **Share** -> **Add to Home Screen**.
-3.  Open the app from your home screen for a fullscreen experience.
+3.  Open the app from your home screen for an immersive experience.
 
 ---
 
@@ -87,14 +90,15 @@ You can manage your data in the Admin Dashboard (login required).
 ## 🇨🇳 中文说明
 
 一个基于 **Cloudflare Workers** 构建的简约、精美、无服务器的猫咪体重记录本。
-通过交互式图表、深色模式和现代化的 UI 界面，轻松记录毛孩子的健康趋势。完全免费托管在您自己的 Cloudflare 账户上。
+通过交互式图表、深色模式、双语界面和现代化的 UI，轻松记录毛孩子的健康趋势。完全免费托管在您自己的 Cloudflare 账户上。
 
 ### ✨ 功能特性
 
 * **无服务器架构**：完全运行在 Cloudflare Workers + KV 存储上，零服务器维护成本。
 * **现代 UI 设计**：采用磨砂玻璃质感、卡片 3D 跟随动效、光晕流光效果以及圆润可爱的字体。
+* **🌍 中英双语**：支持一键切换 **中文 / English**，并自动记忆语言偏好。
+* **🌗 明暗切换**：支持手动切换 **日间 / 夜间** 模式，适配不同光线环境。
 * **数据可视化**：原生 SVG 绘制的平滑曲线图，支持时间筛选（近3月/半年/全部），以及智能防遮挡的气泡提示。
-* **深色/浅色模式**：支持手动切换日间/夜间模式，并自动保存偏好。
 * **PWA 支持**：支持“添加到主屏幕”，在手机上拥有原生 App 般的全面屏体验。
 * **多猫管理**：支持同时记录多只猫咪的数据，一键切换。
 * **导入导出**：支持导出 CSV 备份，也支持批量导入数据（智能合并去重）。
