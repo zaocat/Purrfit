@@ -1,4 +1,4 @@
-# 🐱 Cat Weight Tracker | 猫咪体重本
+# 🐱 Cat Weight Tracker | 猫咪体重追踪
 
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?logo=cloudflare)](https://workers.cloudflare.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
