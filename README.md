@@ -1,174 +1,155 @@
-# 🐱 Purrfit | 猫咪体重追踪
+# 🐱 Purrfit | 猫咪体重本
 
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?logo=cloudflare)](https://workers.cloudflare.com/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
-![Dark Mode](screenshots/screenshots_dark.png) 
-
-<p align="center">Dark Mode screenshot</p>
-
-![Dark Mode](screenshots/screenshots_light.png)
-
-<p align="center">Light Mode screenshot</p>
+[![KV Storage](https://img.shields.io/badge/KV-Storage-blue?logo=cloudflare)](https://developers.cloudflare.com/workers/learning/how-kv-works/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **[English](#english) | [中文说明](#中文说明)**
+
+---
+
+## 📸 Screenshots
+
+| Light Mode | Dark Mode | Mobile PWA |
+| :---: | :---: | :---: |
+| <img src="screenshots/screenshots_light.png" width="300" /> | <img src="screenshots/screenshots_dark.png" width="300" /> | <img src="screenshots/mobile.png" width="180" /> |
 
 ---
 
 <a name="english"></a>
 ## 🇬🇧 English
 
-**Purrfit** is a minimalist, beautiful, serverless Cat Weight Tracker built on **Cloudflare Workers**.
-Keep track of your furry friend's health with interactive charts, dark mode, multi-language support, and a modern UI—all running for free on your own Cloudflare account.
+**Purrfit** is the ultimate serverless Cat Weight Tracker built on **Cloudflare Workers**. It combines a beautiful glassmorphism UI with powerful data management features, running entirely for free on your own Cloudflare account.
 
-> 💡 **Name Origin**: A blend of **Purr** (the sound of a happy cat) + **Fit** (health/fitness). It sounds like *"Perfect"*, symbolizing our goal: keeping your feline friend in perfect shape!
+> 🔗 **Live Demo**: [Click here to view demo](https://zaoan.xx.kg) *(Replace with your link)*
+>
+> 💡 **Name Origin**: A blend of **Purr** (the sound of a happy cat) + **Fit** (health/fitness). It sounds like *"Perfect"*.
 
-### ✨ Features
+### ✨ Ultimate Features
 
-* **Serverless Architecture**: Hosted entirely on Cloudflare Workers + KV Storage. Zero maintenance.
-* **Modern UI**: Glassmorphism design, 3D tilt card effects, and smooth animations using the "Varela Round" font.
-* **🌍 Multi-Language**: One-click switching between **English** and **Chinese**.
-* **🌗 Theme Toggle**: Switch between **Sunny Light** and **Midnight Dark** modes with persistence.
-* **Data Visualization**: Interactive SVG charts with time filters (3 Months/6 Months/All) and smart tooltips.
-* **PWA Support**: Installable on mobile devices! Offers a native app-like full-screen experience.
-* **Multi-Cat Support**: Manage weight records for multiple cats in one place.
-* **Import & Export**: Full CSV support. Backup your data or bulk import records from other apps.
-* **Secure**: Password-protected management dashboard.
+* **☁️ Serverless & Free**: Hosted on Cloudflare Workers + KV. No server maintenance, zero cost for personal use.
+* **🎨 Modern UI**: Glassmorphism design, 3D tilt cards, light/dark mode with dynamic spotlight effects, and smooth animations.
+* **⚙️ Dynamic Configuration**: Manage site title, favicon, and cat list directly from the **Settings Dashboard**. No need to redeploy code!
+* **🐱 Smart Cat Management**:
+    * **Add/Remove Cats**: Easily manage multiple pets.
+    * **Rename & Migrate**: Renaming a cat automatically **migrates all historical data** to the new name. No data loss.
+* **📊 Visualization**: Interactive charts with time filters (3M/6M/All) and smart tooltips that never get clipped.
+* **📂 Data Freedom**: Full CSV Import/Export support with intelligent deduplication.
+* **📱 PWA Ready**: Install as a native-like app on iOS/Android. Optimized touch interactions and layouts.
+* **🌍 i18n**: Instant switching between English and Chinese.
 
-### 🚀 Quick Deployment
+### 🚀 Deployment Guide
 
-#### 1. Create a KV Namespace
-1.  Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/).
-2.  On the left sidebar, expand **Storage & Databases** and click **Workers KV**.
-3.  Click **Create a Namespace**, name it `CAT_WEIGHT_KV` (or any name you prefer), and click **Add**.
+#### 1. Create KV Namespace
+1.  Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/).
+2.  Sidebar: **Storage & Databases** -> **Workers KV**.
+3.  Create a namespace named `CAT_WEIGHT_KV` (or any name).
 
-#### 2. Create a Worker
-1.  On the left sidebar, expand **Compute (Workers & Pages)** (or "Compute & AI") and click **Workers & Pages**.
-2.  Click **Create Application** -> **Create Worker**.
-3.  Name it (e.g., `cat-tracker`) and click **Deploy**.
+#### 2. Create Worker
+1.  Sidebar: **Compute (Workers & Pages)** -> **Overview**.
+2.  **Create Application** -> **Create Worker**.
+3.  Name it `purrfit` and **Deploy**.
 
-#### 3. Configure Bindings & Variables (Crucial Step!)
+#### 3. Configure Bindings & Variables (Crucial!)
 
-**A. Bind KV Namespace:**
-1.  Go to your Worker's dashboard and click the **Bindings** tab (in the top menu).
-2.  Scroll down to **KV Namespace Bindings**.
-3.  Click **Add** (or **Connect**).
-    * **Variable name**: `CAT_KV` (**Must be exactly this!**).
-    * **KV Namespace**: Select the namespace you created in Step 1.
+**A. Bind KV Namespace (In "Bindings" Tab):**
+1.  Go to your Worker's dashboard.
+2.  Click the **Bindings** tab in the top menu bar.
+3.  Scroll to **KV Namespace Bindings** and click **Add** (or **Connect**).
+    * **Variable name**: `CAT_KV` (**Must be exactly this**).
+    * **Namespace**: Select the namespace created in Step 1.
 4.  Click **Deploy** to save.
 
-**B. Set Environment Variables:**
-1.  Click the **Settings** tab (top menu) -> **Variables**.
+**B. Environment Variables (In "Settings" Tab):**
+1.  Click the **Settings** tab in the top menu bar -> Select **Variables**.
 2.  Scroll to **Environment Variables** and click **Add variable**.
 3.  Add the following variables:
-    * `ADMIN_USER`: Your login username (e.g., `admin`).
-    * `ADMIN_PASS`: Your login password.
-    * `CAT_NAMES`: Names of your cats, separated by commas (e.g., `Luna, Oreo`).
+    * `ADMIN_USER`: Your desired username (e.g., `admin`).
+    * `ADMIN_PASS`: Your desired password.
+    * *(Optional)* `CAT_NAMES`: Initial cat names (e.g., `Luna,Oreo`). *Note: You can manage cats in the UI later.*
 4.  Click **Deploy** to save.
 
-#### 4. Deploy Code
-1.  Click the **Edit code** button (usually top right).
+#### 4. Upload Code
+1.  Click the **Edit code** button (top right).
 2.  Copy the content of `worker.js` from this repository.
-3.  Paste it into the Cloudflare editor (replace the original "Hello World" code).
-4.  Click **Deploy**.
+3.  Paste it into the editor and **Deploy**.
 
-🎉 **Done!** Visit your worker URL to start tracking.
-
-### 📂 Data Management
-
-Manage your data in the Admin Dashboard (login required).
-
-* **Export**: Click **📥 Export CSV** to download records for the selected cat.
-* **Import**: Click **📤 Import CSV** to bulk upload data.
-    * **Logic**: The system uses "Date + Cat Name" as a unique key. Existing records with the same date will be overwritten; new dates will be added.
-
-### 📱 Mobile Usage (PWA)
-1.  Open the website in Safari (iOS) or Chrome (Android).
-2.  Tap **Share** -> **Add to Home Screen**.
-3.  Open the app from your home screen for an immersive experience.
+🎉 **Enjoy!** Visit your URL to start tracking.
 
 ---
 
 <a name="中文说明"></a>
 ## 🇨🇳 中文说明
 
-**Purrfit**是一个基于 **Cloudflare Workers** 构建的简约、精美、无服务器的猫咪体重记录本。
-通过交互式图表、深色模式、双语界面和现代化的 UI，轻松记录毛孩子的健康趋势。完全免费托管在您自己的 Cloudflare 账户上。
+**Purrfit** 是一个基于 **Cloudflare Workers** 构建的终极形态猫咪体重记录本。它将唯美的磨砂玻璃界面与强大的数据管理功能完美融合，完全免费托管。
 
-> 💡 **名字由来**：由 **Purr** (猫咪呼噜声) + **Fit** (健康身材) 组合而成。它的读音谐音 *"Perfect"* (完美)，寓意通过记录体重，让猫咪保持完美的健康状态！
+> 🔗 **在线演示**: [点击查看 Demo](https://zaoan.xx.kg) *(请替换为您自己的演示链接)*
+>
+> 💡 **名字由来**：由 **Purr** (猫咪呼噜声) + **Fit** (健康身材) 组合而成。读音谐音 *"Perfect"* (完美)。
 
-### ✨ 功能特性
+### ✨ 核心特性
 
-* **无服务器架构**：完全运行在 Cloudflare Workers + KV 存储上，零服务器维护成本。
-* **现代 UI 设计**：采用磨砂玻璃质感、卡片 3D 跟随动效、光晕流光效果以及圆润可爱的字体。
-* **🌍 中英双语**：支持一键切换 **中文 / English**，并自动记忆语言偏好。
-* **🌗 明暗切换**：支持手动切换 **日间 / 夜间** 模式，适配不同光线环境。
-* **数据可视化**：原生 SVG 绘制的平滑曲线图，支持时间筛选（近3月/半年/全部），以及智能防遮挡的气泡提示。
-* **PWA 支持**：支持“添加到主屏幕”，在手机上拥有原生 App 般的全面屏体验。
-* **多猫管理**：支持同时记录多只猫咪的数据，一键切换。
-* **导入导出**：支持导出 CSV 备份，也支持批量导入数据（智能合并去重）。
-* **安全隐私**：管理界面由密码保护，数据存储在您私有的 KV 数据库中。
+* **☁️ 无服务器架构**：完全运行在 Cloudflare Workers + KV 上，零维护，个人使用完全免费。
+* **🎨 极致 UI 设计**：磨砂玻璃质感、卡片 3D 悬浮、光影跟随效果（深色/浅色模式适配）、丝滑动画。
+* **⚙️ 全动态配置**：通过网页端的 **“设置”** 面板即可修改网站标题、图标和猫咪列表，**无需修改代码或重新部署**。
+* **🐱 智能猫咪管理**：
+    * **增删管理**：随时添加或移除猫咪标签。
+    * **重命名与迁移**：修改猫咪名字时，系统会自动将**所有历史权重数据迁移**到新名字下，确保数据连续性。
+* **📊 数据可视化**：原生 SVG 绘制的平滑曲线图，支持时间筛选，气泡提示智能防遮挡。
+* **📂 数据自由**：支持 CSV 批量导入与导出，内置智能去重逻辑。
+* **📱 完美 PWA 体验**：支持“添加到主屏幕”，在手机上拥有原生 App 般的沉浸式体验。
+* **🌍 双语支持**：中英文一键无缝切换。
 
-### 🚀 快速部署指南
+### 🚀 部署指南
 
 #### 1. 创建 KV 数据库
 1.  登录 [Cloudflare 控制台](https://dash.cloudflare.com/)。
-2.  在左侧侧边栏，展开 **存储和数据库 (Storage & Databases)**，点击 **Workers KV**。
-3.  点击 **创建命名空间 (Create a Namespace)**，命名为 `CAT_WEIGHT_KV`（名字随意），点击添加。
+2.  左侧菜单：**存储和数据库 (Storage & Databases)** -> **Workers KV**。
+3.  点击 **创建命名空间**，命名为 `CAT_WEIGHT_KV`（名字随意），点击添加。
 
 #### 2. 创建 Worker
-1.  在左侧侧边栏，展开 **计算和 AI (Compute & AI)**，点击 **Workers 和 Pages**。
+1.  左侧菜单：**计算 (Workers & Pages)** -> **概述**。
 2.  点击 **创建应用程序** -> **创建 Worker**。
-3.  起个名字（例如 `cat-tracker`），点击 **部署 (Deploy)**。
+3.  起个名字（例如 `purrfit`），点击 **部署**。
 
 #### 3. 配置绑定与变量（关键步骤！）
 
-**A. 绑定 KV 数据库:**
-1.  进入你的 Worker 详情页，点击顶部菜单栏的 **绑定 (Bindings)**。
-2.  向下滑动找到 **KV 命名空间绑定 (KV Namespace Bindings)** 区域。
-3.  点击 **添加 (Add)** 或 **连接 (Connect)**。
-    * **变量名称 (Variable name)**: 填写 `CAT_KV` (**必须完全一致，不能改**)。
+**A. 绑定 KV 数据库 (在 "绑定" 标签页):**
+1.  进入你的 Worker 详情页。
+2.  点击顶部菜单栏的 **绑定 (Bindings)** 标签。
+3.  向下滑动找到 **KV 命名空间绑定**，点击 **添加 (Add)** 或 **连接 (Connect)**。
+    * **变量名称**: 填写 `CAT_KV` (**必须完全一致，不能改**)。
     * **KV 命名空间**: 选择第 1 步创建的数据库。
-4.  点击 **部署 (Deploy)** 保存设置。
+4.  点击 **部署 (Deploy)** 保存。
 
-**B. 添加环境变量:**
-1.  点击顶部菜单栏的 **设置 (Settings)** -> **变量 (Variables)**。
-2.  找到 **环境变量 (Environment Variables)** 区域，点击 **添加变量**。
+**B. 添加环境变量 (在 "设置" 标签页):**
+1.  点击顶部菜单栏的 **设置 (Settings)** -> 选择左侧的 **变量 (Variables)**。
+2.  找到 **环境变量** 区域，点击 **添加变量**。
 3.  添加以下变量：
-    * `ADMIN_USER`: 后台登录用户名（例如 `admin`）。
-    * `ADMIN_PASS`: 后台登录密码。
-    * `CAT_NAMES`: 你猫咪的名字，多只猫用英文逗号分隔（例如 `汤圆,麻薯`）。
-4.  点击 **部署 (Deploy)** 保存设置。
+    * `ADMIN_USER`: 设置你的后台登录用户名。
+    * `ADMIN_PASS`: 设置你的后台登录密码。
+    * *(可选)* `CAT_NAMES`: 初始猫咪名字（例如 `汤圆,麻薯`）。*注：部署后可在网页设置中直接修改。*
+4.  点击 **部署 (Deploy)** 保存。
 
 #### 4. 部署代码
 1.  点击右上角的 **编辑代码 (Edit code)**。
 2.  复制本项目 `worker.js` 的全部代码。
-3.  粘贴到 Cloudflare 编辑器中（覆盖原有的 Hello World 代码）。
-4.  点击 **部署 (Deploy)**。
+3.  粘贴到编辑器中覆盖原始内容，点击 **部署 (Deploy)**。
 
-🎉 **大功告成！** 访问你的 Worker 域名即可开始使用。
+🎉 **大功告成！** 访问你的域名即可开始使用。
 
-### 📂 数据导入与导出
-
-进入后台管理界面后，您可以在底部找到数据操作区：
-
-* **导出 (Export)**：点击 **📥 导出 CSV** 可下载当前猫咪的所有记录。
-* **导入 (Import)**：点击 **📤 导入 CSV** 可批量上传数据。
-    * **文件格式**：推荐使用本工具导出的标准格式 `日期,体重,猫咪,备注`。如果 CSV 中没有猫咪名字列，数据将默认归属给当前选中的猫咪。
-    * **合并逻辑**：系统基于“日期+猫咪名字”判断。如果同一天已有记录，新导入的数据会**覆盖**旧数据；如果是新日期，则会新增记录。
-
-### 📱 手机端使用 (PWA)
+### 📱 手机端使用技巧 (PWA)
 1.  在手机 Safari (iOS) 或 Chrome (Android) 中打开网站。
 2.  点击 **分享** 按钮 -> 选择 **添加到主屏幕**。
-3.  从桌面图标打开，即可享受无地址栏的沉浸式体验。
+3.  桌面会出现 **Purrfit** 图标，点击即可享受全屏 App 体验。
 
-### 🛠️ 常见问题 (FAQ)
+### 🛠️ 常见问题
 
-**Q: 部署后显示 "程序运行出错" 或 Error 1101?**
-A: 这通常是因为 KV 数据库没有绑定成功。请再次检查 **绑定 (Bindings)** 菜单下，KV 绑定的变量名是否严格填写为 `CAT_KV` (全大写)。
+**Q: 如何修改网站标题或图标？**
+A: 登录后，点击输入框上方的 **“⚙️ 网站设置”** 按钮，即可在弹窗中修改全局配置，无需触碰代码。
 
-**Q: 导入 CSV 失败？**
-A: 请确保 CSV 文件是以 UTF-8 编码保存的，且至少包含 `日期` 和 `体重` 两列。
+**Q: 改名后数据会丢吗？**
+A: 不会。请在设置中点击猫咪标签上的 **✎ (编辑)** 按钮进行改名，系统会自动迁移该猫咪名下的所有历史数据。
 
 ---
 
