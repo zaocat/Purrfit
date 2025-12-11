@@ -1,4 +1,4 @@
-# 🐱 Purrfit | 猫咪体重本
+# 🐱 Purrfit | 猫咪体重记录
 
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?logo=cloudflare)](https://workers.cloudflare.com/)
 [![KV Storage](https://img.shields.io/badge/KV-Storage-blue?logo=cloudflare)](https://developers.cloudflare.com/workers/learning/how-kv-works/)
