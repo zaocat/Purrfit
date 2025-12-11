@@ -6,6 +6,12 @@
 
 **[English](#english) | [中文说明](#中文说明)**
 
+> 🔗 **Live Demo**: [Click here to view demo / 点击查看在线Demo](https://zaoan.xx.kg)
+
+> 💡 **Name Origin**: A blend of **Purr** (the sound of a happy cat) + **Fit** (health/fitness). It sounds like *"Perfect"*.
+>
+> 💡 **名字由来**：由 **Purr** (猫咪呼噜声) + **Fit** (健康身材) 组合而成。读音谐音 *"Perfect"* (完美)。
+
 ---
 
 ## 📸 Screenshots
@@ -20,10 +26,6 @@
 ## 🇬🇧 English
 
 **Purrfit** is the ultimate serverless Cat Weight Tracker built on **Cloudflare Workers**. It combines a beautiful glassmorphism UI with powerful data management features, running entirely for free on your own Cloudflare account.
-
-> 🔗 **Live Demo**: [Click here to view demo](https://zaoan.xx.kg) *(Replace with your link)*
->
-> 💡 **Name Origin**: A blend of **Purr** (the sound of a happy cat) + **Fit** (health/fitness). It sounds like *"Perfect"*.
 
 ### ✨ Ultimate Features
 
@@ -76,16 +78,28 @@
 
 🎉 **Enjoy!** Visit your URL to start tracking.
 
+### 📱 Mobile Usage (PWA)
+1.  Open the website in Safari (iOS) or Chrome (Android).
+2.  Tap the **Share** button (iOS) or **Menu** (Android).
+3.  Select **Add to Home Screen**.
+4.  Launch Purrfit from your home screen for a full-screen app experience.
+
+### 🛠️ FAQ
+
+**Q: How to change the site title or favicon?**
+A: Login and click the **"⚙️ Settings"** button. You can update global configs there without touching the code.
+
+**Q: Will renaming a cat lose data?**
+A: No. Use the **✎ (Edit)** button in the Settings panel to rename. The system will automatically migrate all historical records to the new name.
+
+> 🤖 **Customization Tip**: If you have other requirements, feel free to send this project URL or source code to AI models like **Google Gemini** to generate customized code for you!
+
 ---
 
 <a name="中文说明"></a>
 ## 🇨🇳 中文说明
 
 **Purrfit** 是一个基于 **Cloudflare Workers** 构建的终极形态猫咪体重记录本。它将唯美的磨砂玻璃界面与强大的数据管理功能完美融合，完全免费托管。
-
-> 🔗 **在线演示**: [点击查看 Demo](https://zaoan.xx.kg) *(请替换为您自己的演示链接)*
->
-> 💡 **名字由来**：由 **Purr** (猫咪呼噜声) + **Fit** (健康身材) 组合而成。读音谐音 *"Perfect"* (完美)。
 
 ### ✨ 核心特性
 
@@ -150,6 +164,8 @@ A: 登录后，点击输入框上方的 **“⚙️ 网站设置”** 按钮，�
 
 **Q: 改名后数据会丢吗？**
 A: 不会。请在设置中点击猫咪标签上的 **✎ (编辑)** 按钮进行改名，系统会自动迁移该猫咪名下的所有历史数据。
+
+> 🤖 **定制提示**: 如果您有其他个性化需求，可以把本项目地址或源码发送给 **Google Gemini** 等 AI 大模型，让它们帮您生成新的代码！
 
 ---
 
