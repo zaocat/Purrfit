@@ -1,7 +1,8 @@
 /**
- * Cloudflare Worker - Purrfit (v20.14 Glow Effect Restored)
- * 1. Visual: Restored "Mouse Follow Glow" effect on cards.
- * 2. Base: Kept v20.13 structure (Flex footer).
+ * Cloudflare Worker - Purrfit (v20.15 Dark Mode Glow Fix)
+ * 1. Visual: Customized dark mode glow to be subtle white/light instead of red.
+ * 2. Visual: Light mode glow remains reddish.
+ * 3. Base: v20.14 (Glow + Flex Footer).
  */
 
 // ==========================================
@@ -171,7 +172,7 @@ async function handleRequest(request, env) {
     
     if (id) {
       const index = allData.findIndex(item => item.id === id);
-      if (index !== -1) allData[index] = { ...allData[index], date, weight, name: currentCat, note };
+      if (indexindex !== -1) allData[index] = { ...allData[index], date, weight, name: currentCat, note };
     } else {
       allData.push({ id: Date.now().toString(), date, weight, name: currentCat, note });
     }
@@ -328,6 +329,8 @@ function getCss() {
         --primary: #ff6b6b; --primary-grad: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%); 
         --dot-fill: #fff;
         --pill-inactive-bg: #f5f6fa; --pill-inactive-text: #636e72;
+        /* Default Light Mode Glow (Reddish) */
+        --glow-color: rgba(255, 107, 107, 0.08);
     }
     html.dark { 
         --bg-grad: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
@@ -335,6 +338,8 @@ function getCss() {
         --border: #334155; --input-bg: #1e293b; --grid: #334155; 
         --shadow: rgba(0,0,0,0.4); --tooltip-bg: rgba(0, 0, 0, 0.95); --dot-fill: #1e293b;
         --pill-inactive-bg: #1e293b; --pill-inactive-text: #94a3b8;
+        /* Dark Mode Glow (Subtle White/Light) */
+        --glow-color: rgba(255, 255, 255, 0.06);
     }
     html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
     body { 
@@ -356,7 +361,7 @@ function getCss() {
     .control-btn:hover { transform: scale(1.1); color: var(--primary); border-color: var(--primary); }
     @media (max-width: 600px) { .top-controls { top: 15px; right: 15px; } }
 
-    /* === CARD WITH GLOW EFFECT RESTORED === */
+    /* === CARD WITH DYNAMIC GLOW EFFECT === */
     .card { 
         background: var(--card-bg); 
         border-radius: 24px; 
@@ -372,12 +377,12 @@ function getCss() {
         width: 100%; 
         box-sizing: border-box; 
     }
-    /* Glow pseudo-element */
+    /* Glow pseudo-element uses variable color */
     .card::after { 
         content: ""; 
         position: absolute; 
         top: 0; left: 0; right: 0; bottom: 0; 
-        background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,107,107,0.06), transparent 40%); 
+        background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent 40%); 
         opacity: 0; 
         transition: opacity 0.5s; 
         pointer-events: none; 
