@@ -19,11 +19,21 @@
 <a name="english"></a>
 ## 🇬🇧 English
 
-> 🔗 **Live Demo**: [Click here to view demo](https://zaoan.xx.kg)
-
 **Purrfit** is the ultimate serverless Cat Weight Tracker built on **Cloudflare Workers**. It combines a beautiful glassmorphism UI with powerful data management features, running entirely for free on your own Cloudflare account.
 
 > 💡 **Name Origin**: A blend of **Purr** (the sound of a happy cat) + **Fit** (health/fitness). It sounds like *"Perfect"*.
+
+## 🎮 Live Demo
+
+Try it out immediately without deployment:
+
+🌐 **URL**: [https://zao.qzz.io](https://zao.qzz.io)
+
+| Role | Username | Password | Notes |
+| :--- | :--- | :--- | :--- |
+| **Demo User** | `test` | `123456` | Data auto-wipes every 30 mins |
+
+> **Note**: In Demo mode, sensitive actions (Settings, Import/Export) are **read-only** to prevent abuse.
 
 ### ✨ Ultimate Features
 
@@ -97,11 +107,21 @@ A: No. Use the **✎ (Edit)** button in the Settings panel to rename. The system
 <a name="中文说明"></a>
 ## 🇨🇳 中文说明
 
-> 🔗 **在线演示**: [点击查看 Demo](https://zaoan.xx.kg)
-
 **Purrfit** 是一个基于 **Cloudflare Workers** 构建的终极形态猫咪体重记录本。它将唯美的磨砂玻璃界面与强大的数据管理功能完美融合，完全免费托管。
 
 > 💡 **名字由来**：由 **Purr** (猫咪呼噜声) + **Fit** (健康身材) 组合而成。读音谐音 *"Perfect"* (完美)。
+
+## 🎮 在线体验
+
+无需部署，直接点击下方链接体验：
+
+🌐 **URL**: [https://zao.qzz.io](https://zao.qzz.io)
+
+| 测试用户 | 测试密码 | 提醒 |
+| :--- | :--- | :--- |
+| `test` | `123456` |  (数据每30分钟自动清除) |
+
+> **提示**：演示模式下，为了防止滥用，全局设置和导入导出功能为**只读**状态。
 
 ### ✨ 核心特性
 
