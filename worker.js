@@ -1,8 +1,9 @@
 /**
- * Cloudflare Worker - Purrfit (v20.15 Dark Mode Glow Fix)
- * 1. Visual: Customized dark mode glow to be subtle white/light instead of red.
- * 2. Visual: Light mode glow remains reddish.
- * 3. Base: v20.14 (Glow + Flex Footer).
+ * Cloudflare Worker - Purrfit (v20.17 UX Optimization)
+ * 1. UX: "Rename Cat" now uses AJAX. It updates the name instantly WITHOUT reloading the page.
+ * (Fixes the issue where unsaved Title changes were lost when renaming a cat).
+ * 2. Config: Default ZH title updated to "Purrfit | 猫咪体重计".
+ * 3. Base: v20.16 (Dark mode login fixed, Footer fixed, etc.)
  */
 
 // ==========================================
@@ -16,7 +17,7 @@ const GITHUB_URL = 'https://github.com/zaocat/Purrfit';
 // 【配置】图标地址
 const ICON_URL = 'https://img.icons8.com/?size=100&id=ftgzqv4ry3uF&format=png&color=000000'; 
 
-const DEFAULT_TITLE_ZH = 'Purrfit  |  猫咪体重';
+const DEFAULT_TITLE_ZH = 'Purrfit | 猫咪体重计'; // Updated Default Title
 const DEFAULT_TITLE_EN = 'Purrfit';
 const DEFAULT_FAVICON = '/app-icon.png';
 
@@ -172,7 +173,7 @@ async function handleRequest(request, env) {
     
     if (id) {
       const index = allData.findIndex(item => item.id === id);
-      if (indexindex !== -1) allData[index] = { ...allData[index], date, weight, name: currentCat, note };
+      if (index !== -1) allData[index] = { ...allData[index], date, weight, name: currentCat, note };
     } else {
       allData.push({ id: Date.now().toString(), date, weight, name: currentCat, note });
     }
@@ -190,6 +191,7 @@ async function handleRequest(request, env) {
     return Response.redirect(`${url.origin}/add?cat=${encodeURIComponent(currentCat)}&t=${Date.now()}`, 303);
   }
 
+  // --- UPDATED RENAME LOGIC: SUPPORT JSON FOR AJAX ---
   if (path === '/api/rename_cat' && request.method === 'POST') {
     const formData = await request.formData();
     const oldName = formData.get('old_name');
@@ -208,6 +210,14 @@ async function handleRequest(request, env) {
         });
         if (updatedCount > 0) await env.CAT_KV.put(STORAGE_KEY, JSON.stringify(allData));
     }
+    
+    // NEW: Check if client asked for JSON (AJAX)
+    if (request.headers.get('Accept') === 'application/json') {
+        return new Response(JSON.stringify({ status: 'ok', newName: newName }), {
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+
     return Response.redirect(`${url.origin}/add?cat=${encodeURIComponent(newName)}&t=${Date.now()}`, 303);
   }
 
@@ -377,7 +387,6 @@ function getCss() {
         width: 100%; 
         box-sizing: border-box; 
     }
-    /* Glow pseudo-element uses variable color */
     .card::after { 
         content: ""; 
         position: absolute; 
@@ -496,8 +505,22 @@ function getCss() {
     .login-body { display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; background: var(--bg-grad); margin: 0; }
     .login-card { text-align: center; width: 100%; max-width: 400px; margin: 20px; padding: 50px 40px; border-radius: 32px; background: var(--card-bg); box-shadow: 0 20px 60px rgba(0,0,0,0.1); border: 1px solid var(--border); backdrop-filter: blur(15px); }
     .login-card h1 { font-size: 2.2rem; margin-bottom: 35px; background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
-    .login-card input { padding: 16px; font-size: 1rem; margin-bottom: 20px; border-radius: 14px; background: rgba(0,0,0,0.03); border: 1px solid transparent; }
-    .login-card input:focus { background: white; border-color: var(--primary); box-shadow: 0 4px 15px rgba(255,107,107,0.15); }
+    
+    /* Login Inputs */
+    .login-card input { 
+        padding: 16px; 
+        font-size: 1rem; 
+        margin-bottom: 20px; 
+        border-radius: 14px; 
+        background: var(--input-bg); 
+        color: var(--text); 
+        border: 1px solid transparent; 
+    }
+    .login-card input:focus { 
+        background: var(--input-bg); 
+        border-color: var(--primary); 
+        box-shadow: 0 4px 15px rgba(255,107,107,0.15); 
+    }
     .login-card button { margin-top: 10px; padding: 18px; font-size: 1.1rem; border-radius: 14px; }
     .login-card .back { margin-top: 30px; font-size: 0.9rem; opacity: 0.7; }
 
@@ -805,12 +828,48 @@ function renderHTML(allData, page, config, isLoggedIn, currentCatName) {
 
       window.renameCat = function(index) { renameTargetIndex = index; document.getElementById('newCatNameInput').value = catNames[index]; document.getElementById('renameModal').style.display = 'block'; };
       window.closeRename = function() { document.getElementById('renameModal').style.display = 'none'; renameTargetIndex = -1; };
-      window.confirmRename = function() {
+      
+      // === IMPROVED: AJAX RENAME (NO RELOAD) ===
+      window.confirmRename = async function() {
         if (renameTargetIndex === -1) return;
         const newName = document.getElementById('newCatNameInput').value.trim();
         const oldName = catNames[renameTargetIndex];
-        if (newName && newName !== oldName) { document.getElementById('renameOld').value = oldName; document.getElementById('renameNew').value = newName; document.getElementById('renameForm').submit(); }
-        window.closeRename();
+        
+        if (newName && newName !== oldName) { 
+            // Create FormData for AJAX
+            const formData = new FormData();
+            formData.append('old_name', oldName);
+            formData.append('new_name', newName);
+            
+            try {
+                // Send AJAX request
+                const response = await fetch('/api/rename_cat', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' }, // Ask for JSON
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Update Local State instantly
+                    catNames[renameTargetIndex] = newName;
+                    if (currentCat === oldName) currentCat = newName;
+                    
+                    // Update UI components
+                    window.initCatTags(); // Update chips in settings
+                    window.renderApp();   // Update main dropdown
+                    window.showToast("Renamed successfully");
+                    
+                    // Close rename modal, BUT KEEP SETTINGS OPEN
+                    window.closeRename();
+                } else {
+                    alert("Error renaming cat");
+                }
+            } catch(e) {
+                alert("Network error");
+            }
+        } else {
+            window.closeRename();
+        }
       };
 
       window.removeCat = function(index) { deleteTargetIndex = index; document.getElementById('deleteCatModal').style.display = 'block'; };
